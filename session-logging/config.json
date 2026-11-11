@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "enabled": true,
+  "session_id": "01a1c44e-6036-7f30-81ce-3f42ce6fbac7",
+  "workspace": "/Users/hjyoon/Develop/workspace/member-service",
+  "source_transcript": "/Users/hjyoon/.codex/sessions/2026/11/10/rollout-2026-11-10T16-13-53-01a1c44e-6036-7f30-81ce-3f42ce6fbac7.jsonl",
+  "output_dir": "/Users/hjyoon/Develop/workspace/member-service/session-logging/logs",
+  "watch_roots": [
+    "/Users/hjyoon/Develop/workspace/member-service"
+  ],
+  "poll_seconds": 0.5,
+  "heartbeat_seconds": 2,
+  "snapshot_max_bytes": 2097152,
+  "launch_agent_label": "dev.local.codex-session-audit.01a1c44e-6036-7f30-81ce-3f42ce6fbac7",
+  "python": "/opt/homebrew/opt/python@3.15/bin/python3.15",
+  "scope": "this session transcript; workspace filesystem events except collector logs and runtime state",
+  "privacy": "local only; permissions 0700 directories / 0600 files; no network upload",
+  "limitations": [
+    "FSEvents can coalesce rapid changes; intermediate content versions may be unavailable.",
+    "Filesystem events identify paths, not the responsible process.",
+    "Files outside watch_roots require adding a root before changing them; structured Codex FileChange items are captured wherever present.",
+    "Command output is preserved as recorded by Codex, which may truncate output.",
+    "Content snapshots are limited to regular files <= snapshot_max_bytes; larger files retain stat metadata.",
+    "Transcript format is internal and can change on a Codex update."
+  ],
+  "state_dir": "/Users/hjyoon/Develop/workspace/member-service/session-logging/.state",
+  "exclude_paths": [
+    "/Users/hjyoon/Develop/workspace/member-service/session-logging/logs",
+    "/Users/hjyoon/Develop/workspace/member-service/session-logging/.state",
+    "/Users/hjyoon/Develop/workspace/member-service/session-logging/__pycache__",
+    "/Users/hjyoon/Develop/workspace/member-service/ai-logs"
+  ]
+}

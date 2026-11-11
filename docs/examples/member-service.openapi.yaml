@@ -1,0 +1,345 @@
+openapi: 3.1.0
+info:
+  title: Member Service API
+  description: Member 서비스 API 명세
+  version: 1.0.0
+servers:
+- url: /
+  description: 현재 서비스
+tags:
+- name: Members
+  description: 멤버 조회
+- name: Actuator
+  description: Monitor and interact
+  externalDocs:
+    description: Spring Boot Actuator Web API Documentation
+    url: https://docs.spring.io/spring-boot/docs/current/actuator-api/html/
+paths:
+  /api/members:
+    get:
+      tags:
+      - Members
+      summary: 멤버 목록 조회
+      description: 멤버 테이블을 먼저 페이징하고 그룹 서비스에서 그룹명·권한을 조회합니다. sort가 없거나 비어 있으면 정렬을 추가하지
+        않습니다.
+      operationId: findMembers
+      parameters:
+      - name: page
+        in: query
+        description: "페이지 번호, 0부터 시작"
+        required: true
+        schema:
+          type: integer
+          format: int32
+          minimum: 0
+        example: 0
+      - name: size
+        in: query
+        description: "페이지 크기, 기본 20, 최대 100"
+        required: false
+        schema:
+          type: integer
+          format: int32
+          default: 20
+          maximum: 100
+          minimum: 1
+        example: 20
+      - name: sort
+        in: query
+        description: 이름 정렬. 생략 시 DB 반환 순서
+        required: false
+        schema:
+          type: string
+          enum:
+          - "name,asc"
+          - "name,desc"
+      responses:
+        "200":
+          description: 조회 성공
+          headers:
+            X-Request-Id:
+              description: 요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemberListResponse"
+        "400":
+          description: 필수 page 누락 또는 잘못된 페이징·정렬 값
+          headers:
+            X-Request-Id:
+              description: 요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.
+              schema:
+                type: string
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "502":
+          description: 그룹 서비스 호출 또는 응답 오류
+          headers:
+            X-Request-Id:
+              description: 요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.
+              schema:
+                type: string
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+  /api/member/{memberId}:
+    get:
+      tags:
+      - Members
+      summary: 멤버 상세 조회
+      description: "그룹 정보는 그룹 서비스에서 조회합니다. 날짜는 UTC 기준 yyyy-MM-dd HH:mm이며, 그룹 날짜는 멤\
+        버의 가입 시각입니다."
+      operationId: findMember
+      parameters:
+      - name: memberId
+        in: path
+        description: 영문·숫자 1~32자
+        required: true
+        schema:
+          type: string
+          pattern: "[A-Za-z0-9]{1,32}"
+        example: ax1qwsd12s
+      responses:
+        "200":
+          description: 조회 성공
+          headers:
+            X-Request-Id:
+              description: 요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/MemberDetailResponse"
+        "400":
+          description: 잘못된 멤버 ID
+          headers:
+            X-Request-Id:
+              description: 요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.
+              schema:
+                type: string
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "404":
+          description: 존재하지 않는 멤버
+          headers:
+            X-Request-Id:
+              description: 요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.
+              schema:
+                type: string
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+        "502":
+          description: 그룹 서비스 호출 또는 응답 오류
+          headers:
+            X-Request-Id:
+              description: 요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.
+              schema:
+                type: string
+          content:
+            application/problem+json:
+              schema:
+                $ref: "#/components/schemas/ProblemDetail"
+  /actuator:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator root web endpoint
+      operationId: links
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Request-Id:
+              description: 요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.
+              schema:
+                type: string
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    $ref: "#/components/schemas/Link"
+            application/vnd.spring-boot.actuator.v2+json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    $ref: "#/components/schemas/Link"
+            application/json:
+              schema:
+                type: object
+                additionalProperties:
+                  type: object
+                  additionalProperties:
+                    $ref: "#/components/schemas/Link"
+  /actuator/health:
+    get:
+      tags:
+      - Actuator
+      summary: Actuator web endpoint 'health'
+      operationId: health
+      responses:
+        "200":
+          description: OK
+          headers:
+            X-Request-Id:
+              description: 요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.
+              schema:
+                type: string
+          content:
+            application/vnd.spring-boot.actuator.v3+json:
+              schema:
+                type: object
+            application/vnd.spring-boot.actuator.v2+json:
+              schema:
+                type: object
+            application/json:
+              schema:
+                type: object
+components:
+  schemas:
+    ProblemDetail:
+      type: object
+      properties:
+        type:
+          type: string
+          format: uri
+        title:
+          type: string
+        status:
+          type: integer
+          format: int32
+        detail:
+          type: string
+        instance:
+          type: string
+          format: uri
+        properties:
+          type: object
+          additionalProperties: {}
+    MemberListResponse:
+      type: object
+      properties:
+        members:
+          type: array
+          description: 현재 페이지의 멤버 목록
+          items:
+            $ref: "#/components/schemas/MemberResponse"
+      required:
+      - members
+    MemberResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          description: 영문·숫자 멤버 ID
+          example: ax1qwsd12s
+          maxLength: 32
+        name:
+          type: string
+          example: user1
+        group:
+          type:
+          - string
+          - "null"
+          description: 소속 그룹명. 미가입이면 null
+          example: test1
+        permission:
+          description: 그룹 권한. 미가입이면 null
+          example: Editor
+          oneOf:
+          - $ref: "#/components/schemas/MembershipPermission"
+          - type: "null"
+      required:
+      - group
+      - id
+      - name
+      - permission
+    MembershipPermission:
+      type: string
+      enum:
+      - Viewer
+      - Editor
+      - Admin
+    GroupPricing:
+      type: string
+      enum:
+      - Free
+      - Advanced
+      - Premium
+    MemberDetailResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: ax1qwsd12s
+        name:
+          type: string
+          example: user1
+        email:
+          type: string
+          example: user1@email.com
+        address:
+          type: string
+          example: "seoul, gangnamgu"
+        registeredDate:
+          type: string
+          description: UTC 멤버 생성 시각 (yyyy-MM-dd HH:mm)
+          example: 2026-11-09 16:43
+          pattern: "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$"
+        group:
+          description: 소속 그룹. 미가입이면 null
+          oneOf:
+          - $ref: "#/components/schemas/MemberGroupDetailResponse"
+          - type: "null"
+      required:
+      - address
+      - email
+      - group
+      - id
+      - name
+      - registeredDate
+    MemberGroupDetailResponse:
+      type: object
+      properties:
+        id:
+          type: string
+          example: arutjf9348
+        name:
+          type: string
+          example: Test-group-01
+        registeredDate:
+          type: string
+          description: UTC 그룹 가입 시각 (그룹 생성 시각이 아님)
+          example: 2026-11-08 11:00
+          pattern: "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$"
+        pricing:
+          $ref: "#/components/schemas/GroupPricing"
+        permission:
+          $ref: "#/components/schemas/MembershipPermission"
+      required:
+      - id
+      - name
+      - permission
+      - pricing
+      - registeredDate
+    Link:
+      type: object
+      properties:
+        href:
+          type: string
+        templated:
+          type: boolean

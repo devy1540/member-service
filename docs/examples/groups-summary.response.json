@@ -1,0 +1,30 @@
+{
+  "groups": [
+    {
+      "groupId": "arutjf9348",
+      "groupName": "Free 샘플 그룹",
+      "totalMemberCount": 2,
+      "members": [
+        {
+          "memberId": "ax1qwsd12s",
+          "permission": "Admin"
+        },
+        {
+          "memberId": "bs8as1vfws",
+          "permission": "Editor"
+        }
+      ]
+    },
+    {
+      "groupId": "bsvkg0259a",
+      "groupName": "Advanced 샘플 그룹",
+      "totalMemberCount": 1,
+      "members": [
+        {
+          "memberId": "ca12fdfdv1",
+          "permission": "Viewer"
+        }
+      ]
+    }
+  ]
+}

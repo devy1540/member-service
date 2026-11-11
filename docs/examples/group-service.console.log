@@ -1,0 +1,1 @@
+2026-11-10T08:14:45.391Z INFO  [group-service] [http-nio-127.0.0.1-auto-1-exec-6] [requestId=group-service-example] c.a.g.logging.RequestLoggingFilter - HTTP GET /actuator/health -> 200 (14 ms)

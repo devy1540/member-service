@@ -1,0 +1,1 @@
+2026-11-10T08:14:45.071Z INFO  [member-service] [http-nio-127.0.0.1-auto-1-exec-6] [requestId=member-service-example] c.a.m.logging.RequestLoggingFilter - HTTP GET /actuator/health -> 200 (12 ms)

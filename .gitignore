@@ -1,0 +1,58 @@
+/session-logging/logs/
+/session-logging/.state/
+/session-logging/__pycache__/
+.DS_Store
+.env
+.env.*
+!.env.example
+
+HELP.md
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### Kotlin ###
+.kotlin
+
+# Application logs
+logs/
+
+# Submission transcripts are versioned; only interrupted export scratch files are ignored.
+!/ai-logs/
+!/ai-logs/*.jsonl
+!/ai-logs/manifest.json
+!/ai-logs/README.md
+/ai-logs/.export-*/

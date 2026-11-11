@@ -1,0 +1,14 @@
+{"timestamp":"2026-11-10T07:18:49.350165+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"started","pid":3499,"watch_roots":["/Users/***/Develop/workspace/member-service"]}
+{"timestamp":"2026-11-10T07:21:28.773465+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"stopped"}
+{"timestamp":"2026-11-10T07:21:28.953781+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"started","pid":4731,"watch_roots":["/Users/***/Develop/workspace/member-service"]}
+{"timestamp":"2026-11-10T07:26:53.941835+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"stopped"}
+{"timestamp":"2026-11-10T07:27:56.327128+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"started","pid":22583,"watch_roots":["/Users/***/Develop/workspace/member-service"]}
+{"timestamp":"2026-11-10T08:07:31.067145+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"stopped"}
+{"timestamp":"2026-11-10T08:07:32.451254+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"started","pid":60358,"watch_roots":["/Users/***/Develop/workspace/member-service"]}
+{"timestamp":"2026-11-10T08:50:55.600825+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"fsevents_rescan","path":"/Users/***/Develop/workspace/member-service","flags":3}
+{"timestamp":"2026-11-10T08:51:04.654805+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"fsevents_rescan","path":"/Users/***/Develop/workspace/member-service","flags":3}
+{"timestamp":"2026-11-10T08:51:09.522751+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"fsevents_rescan","path":"/Users/***/Develop/workspace/member-service","flags":3}
+{"timestamp":"2026-11-11T05:52:12.474628+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"stopped"}
+{"timestamp":"2026-11-11T05:52:19.927050+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"started","pid":76502,"watch_roots":["/Users/***/Develop/workspace/member-service"]}
+{"timestamp":"2026-11-11T05:58:12.017271+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"stopped"}
+{"timestamp":"2026-11-11T05:58:16.454416+00:00","session_id":"01a1c44e-6036-7f30-81ce-3f42ce6fbac7","event":"started","pid":82845,"watch_roots":["/Users/***/Develop/workspace/member-service"]}

@@ -1,0 +1,27 @@
+{
+  "@timestamp": "2026-11-10T08:14:45.071Z",
+  "log": {
+    "level": "INFO",
+    "logger": "com.api.member.logging.RequestLoggingFilter"
+  },
+  "process": {
+    "pid": 63643,
+    "thread": {
+      "name": "http-nio-127.0.0.1-auto-1-exec-6"
+    }
+  },
+  "service": {
+    "name": "member-service",
+    "version": "0.0.1-SNAPSHOT",
+    "node": {}
+  },
+  "message": "HTTP GET /actuator/health -> 200 (12 ms)",
+  "requestId": "member-service-example",
+  "httpMethod": "GET",
+  "requestPath": "/actuator/health",
+  "status": 200,
+  "durationMs": 12,
+  "ecs": {
+    "version": "8.11"
+  }
+}

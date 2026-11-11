@@ -1,0 +1,46 @@
+{
+  "members": [
+    {
+      "id": "ax1qwsd12s",
+      "name": "김멤버",
+      "group": "Free 샘플 그룹",
+      "permission": "Admin"
+    },
+    {
+      "id": "bs8as1vfws",
+      "name": "이멤버",
+      "group": "Free 샘플 그룹",
+      "permission": "Editor"
+    },
+    {
+      "id": "ca12fdfdv1",
+      "name": "박멤버",
+      "group": "Advanced 샘플 그룹",
+      "permission": "Viewer"
+    },
+    {
+      "id": "dasdxcv22d",
+      "name": "최멤버",
+      "group": "Premium 샘플 그룹",
+      "permission": "Admin"
+    },
+    {
+      "id": "ev4nmn33ea",
+      "name": "정멤버",
+      "group": null,
+      "permission": null
+    },
+    {
+      "id": "fw5pqr44fb",
+      "name": "한멤버",
+      "group": null,
+      "permission": null
+    },
+    {
+      "id": "gx6stu55gc",
+      "name": "오멤버",
+      "group": null,
+      "permission": null
+    }
+  ]
+}

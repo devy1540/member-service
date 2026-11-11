@@ -1,0 +1,432 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Group Service API",
+    "description": "Group 서비스 API 명세",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/",
+      "description": "현재 서비스"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Groups",
+      "description": "멤버 기준 그룹 정보 조회"
+    },
+    {
+      "name": "Internal memberships",
+      "description": "서버 간 그룹 가입 정보 조회"
+    },
+    {
+      "name": "Actuator",
+      "description": "Monitor and interact",
+      "externalDocs": {
+        "description": "Spring Boot Actuator Web API Documentation",
+        "url": "https://docs.spring.io/spring-boot/docs/current/actuator-api/html/"
+      }
+    }
+  ],
+  "paths": {
+    "/internal/group-members": {
+      "get": {
+        "tags": [
+          "Internal memberships"
+        ],
+        "summary": "멤버 ID 목록으로 그룹명·권한 일괄 조회",
+        "description": "가입 정보가 없는 ID는 응답 목록에서 제외합니다.",
+        "operationId": "findMemberships",
+        "parameters": [
+          {
+            "name": "memberIds",
+            "in": "query",
+            "description": "영문·숫자 ID를 쉼표로 구분, 1~100개",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "example": "ax1qwsd12s,bs8as1vfws"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Request-Id": {
+                "description": "요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupMembershipsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/groups/summary": {
+      "get": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "멤버 배열로 그룹 요약 조회",
+        "description": "요청한 멤버가 속한 그룹을 찾고, 각 그룹의 모든 멤버를 members에 반환합니다. totalMemberCount는 members 배열 길이와 같습니다. 미가입 ID는 그룹 선택에서 제외합니다.",
+        "operationId": "summarizeGroups",
+        "parameters": [
+          {
+            "name": "memberIds",
+            "in": "query",
+            "description": "쉼표로 구분한 영문·숫자 ID, 최대 100개",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "example": "ax1qwsd12s,bs8as1vfws"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Request-Id": {
+                "description": "요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupsSummaryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/group": {
+      "get": {
+        "tags": [
+          "Groups"
+        ],
+        "summary": "멤버의 그룹 정보 조회",
+        "description": "미가입 멤버는 200과 JSON null을 반환합니다. registeredDate는 UTC 기준 그룹 가입 시각입니다.",
+        "operationId": "findGroup",
+        "parameters": [
+          {
+            "name": "memberId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "pattern": "[A-Za-z0-9]{1,32}"
+            },
+            "example": "ax1qwsd12s"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "그룹 가입 정보 또는 null",
+            "headers": {
+              "X-Request-Id": {
+                "description": "요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/GroupDetailResponse"
+                    },
+                    {
+                      "type": "null"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/actuator": {
+      "get": {
+        "tags": [
+          "Actuator"
+        ],
+        "summary": "Actuator root web endpoint",
+        "operationId": "links",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Request-Id": {
+                "description": "요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/vnd.spring-boot.actuator.v3+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/Link"
+                    }
+                  }
+                }
+              },
+              "application/vnd.spring-boot.actuator.v2+json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/Link"
+                    }
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "$ref": "#/components/schemas/Link"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/actuator/health": {
+      "get": {
+        "tags": [
+          "Actuator"
+        ],
+        "summary": "Actuator web endpoint 'health'",
+        "operationId": "health",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "headers": {
+              "X-Request-Id": {
+                "description": "요청 추적 ID. 유효한 요청 헤더를 유지하거나 서버가 UUID를 생성합니다.",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/vnd.spring-boot.actuator.v3+json": {
+                "schema": {
+                  "type": "object"
+                }
+              },
+              "application/vnd.spring-boot.actuator.v2+json": {
+                "schema": {
+                  "type": "object"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GroupMembershipResponse": {
+        "type": "object",
+        "properties": {
+          "memberId": {
+            "type": "string",
+            "example": "ax1qwsd12s",
+            "maxLength": 32
+          },
+          "group": {
+            "type": "string",
+            "description": "그룹명",
+            "example": "test1"
+          },
+          "permission": {
+            "type": "string",
+            "enum": [
+              "Viewer",
+              "Editor",
+              "Admin"
+            ]
+          }
+        }
+      },
+      "GroupMembershipsResponse": {
+        "type": "object",
+        "properties": {
+          "memberships": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupMembershipResponse"
+            }
+          }
+        }
+      },
+      "GroupSummaryMemberResponse": {
+        "type": "object",
+        "properties": {
+          "memberId": {
+            "type": "string",
+            "example": "ax1qwsd12s"
+          },
+          "permission": {
+            "type": "string",
+            "enum": [
+              "Viewer",
+              "Editor",
+              "Admin"
+            ]
+          }
+        },
+        "required": [
+          "memberId",
+          "permission"
+        ]
+      },
+      "GroupSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "groupId": {
+            "type": "string",
+            "example": "arutjf9348"
+          },
+          "groupName": {
+            "type": "string",
+            "example": "Test1"
+          },
+          "totalMemberCount": {
+            "type": "integer",
+            "format": "int64",
+            "description": "그룹 전체 인원수. members 배열 길이와 동일",
+            "example": 2
+          },
+          "members": {
+            "type": "array",
+            "description": "해당 그룹에 가입한 모든 멤버",
+            "items": {
+              "$ref": "#/components/schemas/GroupSummaryMemberResponse"
+            }
+          }
+        },
+        "required": [
+          "groupId",
+          "groupName",
+          "members",
+          "totalMemberCount"
+        ]
+      },
+      "GroupsSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "groups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GroupSummaryResponse"
+            }
+          }
+        },
+        "required": [
+          "groups"
+        ]
+      },
+      "GroupDetailResponse": {
+        "type": "object",
+        "properties": {
+          "memberId": {
+            "type": "string",
+            "example": "ax1qwsd12s"
+          },
+          "groupId": {
+            "type": "string",
+            "example": "arutjf9348"
+          },
+          "groupName": {
+            "type": "string",
+            "example": "Test1"
+          },
+          "registeredDate": {
+            "type": "string",
+            "description": "해당 멤버가 그룹에 가입한 시각, UTC yyyy-MM-dd HH:mm",
+            "example": "2026-08-15 13:00",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$"
+          },
+          "pricing": {
+            "type": "string",
+            "enum": [
+              "Free",
+              "Advanced",
+              "Premium"
+            ]
+          },
+          "permission": {
+            "type": "string",
+            "enum": [
+              "Viewer",
+              "Editor",
+              "Admin"
+            ]
+          }
+        },
+        "required": [
+          "groupId",
+          "groupName",
+          "memberId",
+          "permission",
+          "pricing",
+          "registeredDate"
+        ]
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "href": {
+            "type": "string"
+          },
+          "templated": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

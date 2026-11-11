@@ -1,0 +1,14 @@
+{
+  "id": "dasdxcv22d",
+  "name": "최멤버",
+  "email": "member4@example.test",
+  "address": "인천광역시",
+  "registeredDate": "2026-11-11 02:17",
+  "group": {
+    "id": "ctwlh136ab",
+    "name": "Premium 샘플 그룹",
+    "registeredDate": "2026-11-11 02:17",
+    "pricing": "Premium",
+    "permission": "Admin"
+  }
+}

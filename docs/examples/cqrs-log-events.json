@@ -1,0 +1,214 @@
+[
+  {
+    "@timestamp": "2026-11-10T09:18:15.098234Z",
+    "log": {
+      "level": "INFO",
+      "logger": "com.api.member.application.query.GetMembersQueryHandler"
+    },
+    "process": {
+      "pid": 33504,
+      "thread": {
+        "name": "http-nio-127.0.0.1-auto-1-exec-1"
+      }
+    },
+    "service": {
+      "name": "member-service",
+      "version": "0.0.1-SNAPSHOT",
+      "node": {}
+    },
+    "message": "GetMembers completed (page=0, size=100, sort=NONE, returned=4, grouped=4, durationMs=81)",
+    "requestId": "cqrs-live-1794302294922558000",
+    "eventType": "member.query.completed",
+    "cqrs": "query",
+    "operation": "GetMembers",
+    "page": 0,
+    "size": 100,
+    "sort": "NONE",
+    "returnedCount": 4,
+    "groupedCount": 4,
+    "durationMs": 81,
+    "ecs": {
+      "version": "8.11"
+    }
+  },
+  {
+    "@timestamp": "2026-11-10T09:18:15.097778Z",
+    "log": {
+      "level": "INFO",
+      "logger": "com.api.member.infrastructure.client.GroupMembershipHttpAdapter"
+    },
+    "process": {
+      "pid": 33504,
+      "thread": {
+        "name": "http-nio-127.0.0.1-auto-1-exec-1"
+      }
+    },
+    "service": {
+      "name": "member-service",
+      "version": "0.0.1-SNAPSHOT",
+      "node": {}
+    },
+    "message": "Group lookup completed (requested=4, returned=4, durationMs=78)",
+    "requestId": "cqrs-live-1794302294922558000",
+    "eventType": "group.lookup.completed",
+    "cqrs": "query",
+    "upstreamService": "group-service",
+    "requestedCount": 4,
+    "returnedCount": 4,
+    "durationMs": 78,
+    "ecs": {
+      "version": "8.11"
+    }
+  },
+  {
+    "@timestamp": "2026-11-10T09:18:15.045071Z",
+    "log": {
+      "level": "INFO",
+      "logger": "com.api.group.application.query.GetGroupMembershipsQueryHandler"
+    },
+    "process": {
+      "pid": 33495,
+      "thread": {
+        "name": "http-nio-127.0.0.1-auto-1-exec-3"
+      }
+    },
+    "service": {
+      "name": "group-service",
+      "version": "0.0.1-SNAPSHOT",
+      "node": {}
+    },
+    "message": "GetGroupMemberships completed (requested=4, returned=4, durationMs=1)",
+    "requestId": "cqrs-live-1794302294922558000",
+    "eventType": "group.query.completed",
+    "cqrs": "query",
+    "operation": "GetGroupMemberships",
+    "requestedCount": 4,
+    "returnedCount": 4,
+    "durationMs": 1,
+    "ecs": {
+      "version": "8.11"
+    }
+  },
+  {
+    "@timestamp": "2026-11-10T09:18:14.921446Z",
+    "log": {
+      "level": "INFO",
+      "logger": "com.api.member.application.command.InitializeMembersCommandHandler"
+    },
+    "process": {
+      "pid": 33504,
+      "thread": {
+        "name": "main"
+      }
+    },
+    "service": {
+      "name": "member-service",
+      "version": "0.0.1-SNAPSHOT",
+      "node": {}
+    },
+    "message": "InitializeMembers completed (inserted=4, skipped=false, durationMs=11)",
+    "eventType": "member.command.completed",
+    "cqrs": "command",
+    "operation": "InitializeMembers",
+    "insertedCount": 4,
+    "skipped": false,
+    "durationMs": 11,
+    "ecs": {
+      "version": "8.11"
+    }
+  },
+  {
+    "@timestamp": "2026-11-10T09:18:11.364349Z",
+    "log": {
+      "level": "INFO",
+      "logger": "com.api.group.application.command.InitializeGroupsCommandHandler"
+    },
+    "process": {
+      "pid": 33495,
+      "thread": {
+        "name": "main"
+      }
+    },
+    "service": {
+      "name": "group-service",
+      "version": "0.0.1-SNAPSHOT",
+      "node": {}
+    },
+    "message": "InitializeGroups completed (groups=3, memberships=4, skipped=false, durationMs=11)",
+    "eventType": "group.command.completed",
+    "cqrs": "command",
+    "operation": "InitializeGroups",
+    "insertedGroups": 3,
+    "insertedMemberships": 4,
+    "skipped": false,
+    "durationMs": 11,
+    "ecs": {
+      "version": "8.11"
+    }
+  },
+  {
+    "@timestamp": "2026-11-10T09:18:15.633798Z",
+    "log": {
+      "level": "WARN",
+      "logger": "com.api.member.infrastructure.client.GroupMembershipHttpAdapter"
+    },
+    "process": {
+      "pid": 33504,
+      "thread": {
+        "name": "http-nio-127.0.0.1-auto-1-exec-5"
+      }
+    },
+    "service": {
+      "name": "member-service",
+      "version": "0.0.1-SNAPSHOT",
+      "node": {}
+    },
+    "message": "Group lookup failed (reason=CONNECTION_FAILURE, status=null)",
+    "requestId": "cqrs-live-1794302294922558000-failure",
+    "eventType": "group.lookup.failed",
+    "cqrs": "query",
+    "upstreamService": "group-service",
+    "requestedCount": 2,
+    "failureReason": "CONNECTION_FAILURE",
+    "upstreamStatus": null,
+    "errorType": "ResourceAccessException",
+    "durationMs": 2,
+    "ecs": {
+      "version": "8.11"
+    }
+  },
+  {
+    "@timestamp": "2026-11-10T09:18:15.634124Z",
+    "log": {
+      "level": "ERROR",
+      "logger": "com.api.member.application.query.GetMembersQueryHandler"
+    },
+    "process": {
+      "pid": 33504,
+      "thread": {
+        "name": "http-nio-127.0.0.1-auto-1-exec-5"
+      }
+    },
+    "service": {
+      "name": "member-service",
+      "version": "0.0.1-SNAPSHOT",
+      "node": {}
+    },
+    "message": "GetMembers failed (stage=group-service, reason=CONNECTION_FAILURE)",
+    "requestId": "cqrs-live-1794302294922558000-failure",
+    "eventType": "member.query.failed",
+    "cqrs": "query",
+    "operation": "GetMembers",
+    "page": 0,
+    "size": 2,
+    "sort": "NONE",
+    "stage": "group-service",
+    "failureReason": "CONNECTION_FAILURE",
+    "upstreamStatus": null,
+    "errorType": "GroupMembershipLookupException",
+    "durationMs": 3,
+    "ecs": {
+      "version": "8.11"
+    }
+  }
+]

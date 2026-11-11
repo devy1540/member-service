@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "exported_at_utc": "2026-11-11T06:00:55.662810+00:00",
+  "session_id": "01a1c44e-6036-7f30-81ce-3f42ce6fbac7",
+  "content": "All collected events, with text masking; not an unedited original transcript.",
+  "prior_masking": "Company identifiers were already masked in the collected logs.",
+  "source": "session-logging/logs/audit.sqlite3",
+  "ordering": "Original collector insertion order within each category; no event selection or omission.",
+  "opaque_payloads": "Encrypted content and embedded data URIs are preserved without modification.",
+  "excluded_auxiliary_storage": [
+    "SQLite runtime index",
+    "file-content snapshots"
+  ],
+  "files": {
+    "session.jsonl": {
+      "category": "raw-session",
+      "events": 1739,
+      "sha256": "fa31dce6dd97891fa0356ef21311a05d503f4af0ea6180cb3d1ce0d92f07753b"
+    },
+    "prompts.jsonl": {
+      "category": "prompts",
+      "events": 22,
+      "sha256": "d20dd3c0d8e4d4808f1e5997ef195dbc1beb37f405d5d97b88dcba681ca6a382"
+    },
+    "responses.jsonl": {
+      "category": "responses",
+      "events": 68,
+      "sha256": "9eb3ad94d435a3862bf42876321bb06f221e37476cd12efa67ae31a5d895b1b9"
+    },
+    "commands.jsonl": {
+      "category": "commands",
+      "events": 121,
+      "sha256": "881f3552178902cc284bd12b525bad69a3fda0d2961242661a67689123b04c9a"
+    },
+    "tools.jsonl": {
+      "category": "tools",
+      "events": 367,
+      "sha256": "c5368fe914a5dd1b645bb052226038921651acf65db18485eca6fff74d98f006"
+    },
+    "files.jsonl": {
+      "category": "files",
+      "events": 13296,
+      "sha256": "20901b41233c4e6a581d7f514e3f163abe8cae3acda704e10ef3ccbf6d3f2d1c"
+    },
+    "collector.jsonl": {
+      "category": "collector",
+      "events": 14,
+      "sha256": "f9ad5ffeb964d0dfb554d461bcf51ac3665ece80762e802be8b52a62c97c87df"
+    }
+  },
+  "masking_occurrences": {
+    "local_account_path": 41860,
+    "email": 490,
+    "local_account_name": 1234
+  },
+  "additional_key_masking": {
+    "changed_dictionary_keys": 590,
+    "events_preserved": true,
+    "masking_occurrences": {
+      "local_account_path": 590,
+      "email": 0,
+      "provider_credential": 0,
+      "jwt": 0,
+      "local_account_name": 0
+    }
+  }
+}
